@@ -4,6 +4,7 @@
 
 import tempfile
 from urllib import request
+import ssl
 from os import path
 import os
 import zipfile
@@ -59,6 +60,7 @@ class FileDownloader:
     
     def download(self, alive_bar=None):
         self.alive_bar = alive_bar
+        ssl._create_default_https_context = ssl._create_unverified_context        
         
         if self.filename:
             file_path, http_msg = request.urlretrieve(self.url, filename=self.filename, reporthook=self._reporthook)
